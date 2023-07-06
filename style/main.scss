@@ -1,0 +1,215 @@
+@font-face {
+	font-family: "Archia";
+	src: url("../Archia-Regular.otf"); /* IE9 Compat Modes */
+  }
+  
+  body {
+	padding: 10px;
+	font-family: "Archia";
+	font-weight: Regular;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	background-color: #212121;
+  }
+  
+  code {
+	font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+	  monospace;
+  }
+  
+  .app {
+	text-align: center;
+  }
+  
+  #vortext {
+	pointer-events: none;
+	width: 20em;
+	height: 20em;
+	background: url(vortext.png);
+	background-size: 20em 20em;
+  }
+  
+  .rabbit-nav {
+	display: grid;
+	top: 2em;
+	right: 2em;
+	width: 3em;
+	height: 3em;
+	background: url(web_rabbit.png);
+	background-size: 3em 3em;
+  }
+  
+  .rabbit-nav:hover {
+	cursor: pointer;
+  }
+  
+  .content {
+	min-height: 100vh;
+	min-width: 100vw;
+	display: grid;
+	grid-template: "container";
+	place-items: center;
+	place-content: center;
+	overflow: hidden;
+	gap: 10%;
+	font-size: calc(10px + 2vmin);
+	color: white;
+  }
+  
+  .me {
+	position: relative;
+	margin: 0 auto;
+	display: grid;
+	min-height: 20vh;
+	min-width: 100vw;
+	place-items: center;
+	place-content: center;
+  }
+  
+  .logo-normal {
+	position: absolute;
+	pointer-events: none;
+	width: 16em;
+	height: 10em;
+	background: url(profile.jpg);
+	background-size: 16em 10em;
+	border-radius: 3%;
+  
+  }
+  
+  .logo-more-trippy {
+	position: absolute;
+	cursor: pointer;
+	pointer-events: none;
+	width: 16em;
+	height: 10em;
+	background: url(profile_more_trippy.jpg);
+	background-size: 16em 10em;
+	border-radius: 3%;
+	animation-name: cf3FadeInOut;
+	animation-timing-function: ease-in-out;
+	animation-iteration-count: infinite;
+	animation-duration: 10s;
+	animation-direction: alternate;
+  
+  }
+  
+  .typing-container {
+	display: inline-block;
+	overflow-wrap: break-word;
+  }
+  
+  .text-blob {
+	display: inline-block;
+	overflow-wrap: break-word;
+	width: 70%;
+  }
+  
+  .typed-out {
+	overflow: hidden;
+	border-right: 0.15em solid white;
+	white-space: nowrap;
+	animation: typing 2s steps(60, end) forwards, blink 0.8s infinite;
+	font-size: 1.6rem;
+	width: 0;
+  }
+  
+  .twitter {
+	cursor: pointer;
+	background: url(../twitter.png);
+	background-size: 1em 1em;
+	height: 1em;
+	width: 1em;
+  }
+  
+  .linkedin {
+	cursor: pointer;
+	background: url(../linkedin.png);
+	background-size: 1em 1em;
+	height: 1em;
+	width: 1em;
+  }
+  
+  .github {
+	cursor: pointer;
+	background: url(../github.png);
+	background-size: 1em 1em;
+	height: 1em;
+	width: 1em;
+  }
+  
+  .social-media {
+	  display: grid;
+	  grid-auto-flow: column;
+	  gap: 30%;
+	  place-items: center;
+	  place-content: center;
+  }
+  
+  @keyframes typing {
+	from {
+	  width: 0;
+	}
+	to {
+	  width: 100%;
+	}
+  }
+  
+  @keyframes blink {
+	from {
+	  border-color: transparent;
+	}
+	to {
+	  border-color: white;
+	}
+  }
+  
+  @keyframes cf3FadeInOut {
+	0% {
+	opacity:1;
+  }
+  10% {
+   opacity: 1
+  }
+  20% {
+   opacity: 0.9
+  }
+  30% {
+  opacity:0.8;
+  }
+  40% {
+  opacity:0.7;
+  }
+  50% {
+  opacity:0.6;
+  }
+  60% {
+  opacity:0.4;
+  }
+  70% {
+  opacity:0.2;
+  }
+  80% {
+  opacity:0.1;
+  }
+  90% {
+  opacity:0;
+  }
+  100% {
+  opacity:0;
+  }
+  }
+  
+  @media (prefers-reduced-motion: no-preference) {
+	.app-logo {
+	  animation: app-logo-spin infinite 7s linear;
+	}
+  }
+  @keyframes app-logo-spin {
+	from {
+	  transform: rotate(0deg);
+	}
+	to {
+	  transform: rotate(360deg);
+	}
+  }
