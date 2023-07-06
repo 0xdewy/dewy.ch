@@ -15,10 +15,10 @@ pub fn App(cx: Scope) -> impl IntoView {
         // id=leptos means cargo-leptos will hot-reload this stylesheet
         <Stylesheet id="leptos" href="/pkg/kyledewy.css"/>
 
-        <Link rel="icon" type_="image/x-icon" href="/assets/favicon.ico"/>
+        <Link rel="icon" type_="image/x-icon" href="favicon.ico"/>
 
         // sets the document title
-        <Title text="kyledewy"/>
+        <Title text="kyle dewy"/>
 
         // content for this welcome page
         <Router fallback=|cx| {
