@@ -5,22 +5,14 @@ use leptos_router::*;
 
 #[component]
 pub fn App(cx: Scope) -> impl IntoView {
-    // Provides context that manages stylesheets, titles, meta tags, etc.
     provide_meta_context(cx);
 
     view! {
         cx,
-
-        // injects a stylesheet into the document <head>
-        // id=leptos means cargo-leptos will hot-reload this stylesheet
         <Stylesheet id="leptos" href="/pkg/kyledewy.css"/>
-
         <Link rel="icon" type_="image/x-icon" href="favicon.ico"/>
-
-        // sets the document title
         <Title text="kyle dewy"/>
 
-        // content for this welcome page
         <Router fallback=|cx| {
             let mut outside_errors = Errors::default();
             outside_errors.insert_with_default_key(AppError::NotFound);
@@ -38,27 +30,90 @@ pub fn App(cx: Scope) -> impl IntoView {
     }
 }
 
-/// Renders the home page of your application.
 #[component]
 fn HomePage(cx: Scope) -> impl IntoView {
+    let msgs = vec![
+        String::from("hi welcome to my website"),
+        String::from("my name is kyle, i am a programmer"),
+    ];
     view! { cx,
-        <div class="app">
-        <div class="content">
-            <div class="typing-container">
-                <div class="typed-out">
-                    "hi i am kyle, welcome to my page on the interwebs"
-                </div>
+        <NavBar/>
+        <AppLayout>
+            <TypingContainer messages=msgs/>
+        </AppLayout>
+        <SocialMedia/>
+    }
+}
+
+#[component]
+fn NavBar(cx: Scope) -> impl IntoView {
+    view! { cx,
+        <div class="nav-bar">
+            <div class="nav-item">
+                <a href="/">"home"</a>
             </div>
+            <div class="nav-item">
+                <a class="nav-item" href="/projects">"projects"</a>
+            </div>
+            <div class="nav-item">
+                <a href="/about">"about"</a>
+            </div>
+        </div>
+    }
+}
+
+#[component]
+fn SocialMedia(cx: Scope) -> impl IntoView {
+    view! { cx,
             <div class="social-media">
                 <a href="https://twitter.com/kyle_dewy" target="_blank">
                     <div class="twitter" ></div>
                 </a>
-
                 <a href="https://github.com/kyledewy" target="_blank">
                     <div class="github" />
                 </a>
             </div>
+    }
+
+}
+
+#[component]
+fn AppLayout(cx: Scope, children: Children) -> impl IntoView {
+    view! { cx,
+        <div class="app">
+            
+        <div class="content">
+            {children(cx)}
+            
         </div>
     </div>
     }
 }
+
+#[component]
+fn TypingContainer(cx: Scope, messages: Vec<String>) -> impl IntoView {
+    let (index, _set_index) = create_signal(cx, 0);
+
+    /*
+    let msg_len  = messages.len();
+    */
+    let current_message = Signal::derive(cx, move || messages[index.get() as usize].clone());
+
+
+    view! { cx,
+            <div class="typing-container">
+
+            <div class="typed-out"
+                /*
+                 on:animationend=move |_| {
+                    let curr_index = index.get();
+                    set_index.set((curr_index + 1) % msg_len);
+                 }
+                 */
+            >
+                {current_message}
+            </div>
+        </div>
+    }
+}
+

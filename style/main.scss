@@ -10,6 +10,7 @@
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	background-color: #212121;
+    color: white;
   }
   
   code {
@@ -20,31 +21,34 @@
   .app {
 	text-align: center;
   }
-  
-  #vortext {
-	pointer-events: none;
-	width: 20em;
-	height: 20em;
-	background: url(vortext.png);
-	background-size: 20em 20em;
-  }
-  
-  .rabbit-nav {
-	display: grid;
-	top: 2em;
-	right: 2em;
-	width: 3em;
-	height: 3em;
-	background: url(web_rabbit.png);
-	background-size: 3em 3em;
-  }
-  
-  .rabbit-nav:hover {
-	cursor: pointer;
-  }
-  
+
+  .nav-bar {
+    top: 10em;
+    min-width: 100vw;
+    height: 2em;
+    display: flex; /* Use flexbox for horizontal alignment */
+    justify-content: center; /* Center items horizontally */
+    align-items: center; /* Center items vertically */
+}
+
+.nav-item {
+    margin: 0 2em; /* Add spacing between items */
+    align-self: stretch; /* Make sure items take up full height */
+}
+
+.nav-item a {
+    display: block;
+    text-align: center; /* Center text */
+    text-decoration: none; /* Remove underline */
+    color: white; /* Change link color to white */
+    font-size: 1em;
+    width: 3em;
+    height: 2em;
+}
+
+
   .content {
-	min-height: 100vh;
+	min-height: 80vh;
 	min-width: 100vw;
 	display: grid;
 	grid-template: "container";
@@ -54,44 +58,6 @@
 	gap: 10%;
 	font-size: calc(10px + 2vmin);
 	color: white;
-  }
-  
-  .me {
-	position: relative;
-	margin: 0 auto;
-	display: grid;
-	min-height: 20vh;
-	min-width: 100vw;
-	place-items: center;
-	place-content: center;
-  }
-  
-  .logo-normal {
-	position: absolute;
-	pointer-events: none;
-	width: 16em;
-	height: 10em;
-	background: url(profile.jpg);
-	background-size: 16em 10em;
-	border-radius: 3%;
-  
-  }
-  
-  .logo-more-trippy {
-	position: absolute;
-	cursor: pointer;
-	pointer-events: none;
-	width: 16em;
-	height: 10em;
-	background: url(profile_more_trippy.jpg);
-	background-size: 16em 10em;
-	border-radius: 3%;
-	animation-name: cf3FadeInOut;
-	animation-timing-function: ease-in-out;
-	animation-iteration-count: infinite;
-	animation-duration: 10s;
-	animation-direction: alternate;
-  
   }
   
   .typing-container {
@@ -117,31 +83,24 @@
   .twitter {
 	cursor: pointer;
 	background: url(../twitter.png);
-	background-size: 1em 1em;
-	height: 1em;
-	width: 1em;
-  }
-  
-  .linkedin {
-	cursor: pointer;
-	background: url(../linkedin.png);
-	background-size: 1em 1em;
-	height: 1em;
-	width: 1em;
+	background-size: 2em 2em;
+	height: 2em;
+	width: 2em;
   }
   
   .github {
 	cursor: pointer;
 	background: url(../github.png);
-	background-size: 1em 1em;
-	height: 1em;
-	width: 1em;
+	background-size: 2em 2em;
+	height: 2em;
+	width: 2em;
   }
   
   .social-media {
 	  display: grid;
+      min-width: 100vw;
 	  grid-auto-flow: column;
-	  gap: 30%;
+      gap: 1.5%;
 	  place-items: center;
 	  place-content: center;
   }
@@ -161,55 +120,5 @@
 	}
 	to {
 	  border-color: white;
-	}
-  }
-  
-  @keyframes cf3FadeInOut {
-	0% {
-	opacity:1;
-  }
-  10% {
-   opacity: 1
-  }
-  20% {
-   opacity: 0.9
-  }
-  30% {
-  opacity:0.8;
-  }
-  40% {
-  opacity:0.7;
-  }
-  50% {
-  opacity:0.6;
-  }
-  60% {
-  opacity:0.4;
-  }
-  70% {
-  opacity:0.2;
-  }
-  80% {
-  opacity:0.1;
-  }
-  90% {
-  opacity:0;
-  }
-  100% {
-  opacity:0;
-  }
-  }
-  
-  @media (prefers-reduced-motion: no-preference) {
-	.app-logo {
-	  animation: app-logo-spin infinite 7s linear;
-	}
-  }
-  @keyframes app-logo-spin {
-	from {
-	  transform: rotate(0deg);
-	}
-	to {
-	  transform: rotate(360deg);
 	}
   }
