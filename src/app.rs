@@ -49,15 +49,10 @@ fn HomePage(cx: Scope) -> impl IntoView {
 fn NavBar(cx: Scope) -> impl IntoView {
     view! { cx,
         <div class="nav-bar">
-            <div class="nav-item">
-                <a href="/">"home"</a>
-            </div>
-            <div class="nav-item">
+                <a class="nav-item" href="/">"home"</a>
                 <a class="nav-item" href="/projects">"projects"</a>
-            </div>
-            <div class="nav-item">
-                <a href="/about">"about"</a>
-            </div>
+                <a class="nav-item" href="/contact">"contact"</a>
+                <a class="nav-item" href="/about">"about"</a>
         </div>
     }
 }
