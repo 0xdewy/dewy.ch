@@ -2,6 +2,7 @@ use crate::error_template::{AppError, ErrorTemplate};
 use leptos::*;
 use leptos_meta::*;
 use leptos_router::*;
+use frankenstein::TelegramApi;
 
 #[component]
 pub fn App(cx: Scope) -> impl IntoView {
@@ -10,8 +11,8 @@ pub fn App(cx: Scope) -> impl IntoView {
     view! {
         cx,
         <Stylesheet id="leptos" href="/pkg/kyledewy.css"/>
-        <Link rel="icon" type_="image/x-icon" href="favicon.ico"/>
-        <Title text="kyle dewy"/>
+        <Link rel="icon" type_="image/x-icon" href="favicon.svg"/>
+        <Title text="kyle dewy 🌞"/>
 
         <Router fallback=|cx| {
             let mut outside_errors = Errors::default();
@@ -22,9 +23,14 @@ pub fn App(cx: Scope) -> impl IntoView {
             .into_view(cx)
         }>
             <main>
+            <NavBar/>
+            <AppLayout>
                 <Routes>
                     <Route path="" view=|cx| view! { cx, <HomePage/> }/>
+                    <Route path="/contact" view=|cx| view! { cx, <Contact/> }/>
                 </Routes>
+            </AppLayout>
+            <SocialMedia/>
             </main>
         </Router>
     }
@@ -32,16 +38,42 @@ pub fn App(cx: Scope) -> impl IntoView {
 
 #[component]
 fn HomePage(cx: Scope) -> impl IntoView {
+    // TODO: iterate through the messages
     let msgs = vec![
         String::from("hi welcome to my website"),
         String::from("my name is kyle, i am a programmer"),
     ];
     view! { cx,
-        <NavBar/>
-        <AppLayout>
             <TypingContainer messages=msgs/>
-        </AppLayout>
-        <SocialMedia/>
+    }
+}
+
+#[server(SendMessage, "/api")]
+pub async fn send_message(cx: Scope, name: String, email: String, message: String) -> Result<(), ServerFnError> {
+    let token = std::env::var("TELEGRAM_BOT_TOKEN")?;
+    let chat_id = std::env::var("TELEGRAM_CHAT_ID")?;
+    let api = frankenstein::Api::new(&token);
+    let send_message_params = frankenstein::SendMessageParams::builder()
+    .chat_id(chat_id)
+    .text(format!("name: {}\nemail: {}\nmessage: {}", name, email, message))
+    .allow_sending_without_reply(true)
+    .build();
+    println!("sending message {send_message_params:?}");
+    let res = api.send_message(&send_message_params)?;
+    Ok(())
+}
+
+
+#[component]
+fn Contact(cx: Scope) -> impl IntoView {
+    let send_message = create_server_action::<SendMessage>(cx);
+    view! { cx,
+    <ActionForm class="vertical-form" action=send_message>
+        <input type="text" name="name" placeholder="Your Name" required/>
+        <input type="email" name="email" placeholder="Your Email" required/>
+        <textarea name="message" placeholder="Your Message" required></textarea>
+        <button type="submit">Send Message</button>
+    </ActionForm>
     }
 }
 
