@@ -1,33 +1,33 @@
 use crate::error_template::{AppError, ErrorTemplate};
+use frankenstein::TelegramApi;
 use leptos::*;
 use leptos_meta::*;
 use leptos_router::*;
-use frankenstein::TelegramApi;
 
 #[component]
-pub fn App(cx: Scope) -> impl IntoView {
-    provide_meta_context(cx);
+pub fn App() -> impl IntoView {
+    provide_meta_context();
 
     view! {
-        cx,
         <Stylesheet id="leptos" href="/pkg/kyledewy.css"/>
         <Link rel="icon" type_="image/x-icon" href="favicon.svg"/>
         <Title text="kyle dewy 🌞"/>
 
-        <Router fallback=|cx| {
+        <Router fallback=|| {
             let mut outside_errors = Errors::default();
             outside_errors.insert_with_default_key(AppError::NotFound);
-            view! { cx,
+            view! {
                 <ErrorTemplate outside_errors/>
             }
-            .into_view(cx)
+            .into_view()
         }>
             <main>
             <NavBar/>
             <AppLayout>
                 <Routes>
-                    <Route path="" view=|cx| view! { cx, <HomePage/> }/>
-                    <Route path="/contact" view=|cx| view! { cx, <Contact/> }/>
+                    <Route path="" view=|| view! { <HomePage/> }/>
+                    <Route path="/contact" view=|| view! { <Contact/> }/>
+                    <Route path="/about" view=|| view! { <About/> }/>
                 </Routes>
             </AppLayout>
             <SocialMedia/>
@@ -37,37 +37,52 @@ pub fn App(cx: Scope) -> impl IntoView {
 }
 
 #[component]
-fn HomePage(cx: Scope) -> impl IntoView {
+fn HomePage() -> impl IntoView {
     // TODO: iterate through the messages
     let msgs = vec![
         String::from("hi welcome to my website"),
         String::from("my name is kyle, i am a programmer"),
     ];
-    view! { cx,
+    view! {
             <TypingContainer messages=msgs/>
     }
 }
 
+#[component]
+fn About() -> impl IntoView {
+    view! {
+        <div>
+            <p>"have been developing blockchain software since 2016"</p>
+        </div>
+    }
+}
+
 #[server(SendMessage, "/api")]
-pub async fn send_message(cx: Scope, name: String, email: String, message: String) -> Result<(), ServerFnError> {
+pub async fn send_message(
+    name: String,
+    email: String,
+    message: String,
+) -> Result<(), ServerFnError> {
     let token = std::env::var("TELEGRAM_BOT_TOKEN")?;
     let chat_id = std::env::var("TELEGRAM_CHAT_ID")?;
     let api = frankenstein::Api::new(&token);
     let send_message_params = frankenstein::SendMessageParams::builder()
-    .chat_id(chat_id)
-    .text(format!("name: {}\nemail: {}\nmessage: {}", name, email, message))
-    .allow_sending_without_reply(true)
-    .build();
+        .chat_id(chat_id)
+        .text(format!(
+            "name: {}\nemail: {}\nmessage: {}",
+            name, email, message
+        ))
+        .allow_sending_without_reply(true)
+        .build();
     println!("sending message {send_message_params:?}");
     let res = api.send_message(&send_message_params)?;
     Ok(())
 }
 
-
 #[component]
-fn Contact(cx: Scope) -> impl IntoView {
-    let send_message = create_server_action::<SendMessage>(cx);
-    view! { cx,
+fn Contact() -> impl IntoView {
+    let send_message = create_server_action::<SendMessage>();
+    view! {
     <ActionForm class="vertical-form" action=send_message>
         <input type="text" name="name" placeholder="Your Name" required/>
         <input type="email" name="email" placeholder="Your Email" required/>
@@ -78,8 +93,8 @@ fn Contact(cx: Scope) -> impl IntoView {
 }
 
 #[component]
-fn NavBar(cx: Scope) -> impl IntoView {
-    view! { cx,
+fn NavBar() -> impl IntoView {
+    view! {
         <div class="nav-bar">
                 <a class="nav-item" href="/">"home"</a>
                 <a class="nav-item" href="/projects">"projects"</a>
@@ -90,8 +105,8 @@ fn NavBar(cx: Scope) -> impl IntoView {
 }
 
 #[component]
-fn SocialMedia(cx: Scope) -> impl IntoView {
-    view! { cx,
+fn SocialMedia() -> impl IntoView {
+    view! {
             <div class="social-media">
                 <a href="https://twitter.com/kyle_dewy" target="_blank">
                     <div class="twitter" ></div>
@@ -101,33 +116,31 @@ fn SocialMedia(cx: Scope) -> impl IntoView {
                 </a>
             </div>
     }
-
 }
 
 #[component]
-fn AppLayout(cx: Scope, children: Children) -> impl IntoView {
-    view! { cx,
+fn AppLayout(children: Children) -> impl IntoView {
+    view! {
         <div class="app">
-            
+
         <div class="content">
-            {children(cx)}
-            
+            {children()}
+
         </div>
     </div>
     }
 }
 
 #[component]
-fn TypingContainer(cx: Scope, messages: Vec<String>) -> impl IntoView {
-    let (index, _set_index) = create_signal(cx, 0);
+fn TypingContainer(messages: Vec<String>) -> impl IntoView {
+    let (index, _set_index) = create_signal(0);
 
     /*
     let msg_len  = messages.len();
     */
-    let current_message = Signal::derive(cx, move || messages[index.get() as usize].clone());
+    let current_message = Signal::derive(move || messages[index.get() as usize].clone());
 
-
-    view! { cx,
+    view! {
             <div class="typing-container">
 
             <div class="typed-out"
@@ -143,4 +156,3 @@ fn TypingContainer(cx: Scope, messages: Vec<String>) -> impl IntoView {
         </div>
     }
 }
-
