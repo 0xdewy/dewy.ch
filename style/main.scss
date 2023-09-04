@@ -21,6 +21,26 @@
 	text-align: center;
   }
 
+  ul {
+      display: block;
+      text-align: start;
+      align-self: start;
+  }
+
+  li {
+      margin: 1em 2.5em; /* Add spacing between items */
+      text-align: start;
+      align-self: start;
+      text-decoration: none;
+      color: white;
+      max-width: 70vw;
+    }
+
+    a {
+        text-decoration: none;
+        color: cyan;
+    }
+
   .nav-bar {
     top: 10em;
     min-height: 5vh;
@@ -33,6 +53,7 @@
 
 .nav-item {
     margin: 0 2em; /* Add spacing between items */
+    font-weight: bold; /* Make items bold */
     align-self: center;
     display: block;
     text-align: center; /* Center text */
@@ -65,7 +86,7 @@
 }
 
 .vertical-form input {
-  width: 99.5%;
+  width: 100%;
   border: none;
 }
 
@@ -76,8 +97,8 @@
 }
 
 .vertical-form button {
-  width: 101.5%;
-  padding: 0.75em 1em;
+  width: 101%;
+  padding: 0 0;
   border: none;
   border-radius: 4px;
   background-color: white;

@@ -10,8 +10,7 @@ pub fn App() -> impl IntoView {
 
     view! {
         <Stylesheet id="leptos" href="/pkg/kyledewy.css"/>
-        <Link rel="icon" type_="image/x-icon" href="favicon.svg"/>
-        <Title text="kyle dewy 🌞"/>
+        <Title text="🌞 Kyle Dewy 🌞"/>
 
         <Router fallback=|| {
             let mut outside_errors = Errors::default();
@@ -28,6 +27,7 @@ pub fn App() -> impl IntoView {
                     <Route path="" view=|| view! { <HomePage/> }/>
                     <Route path="/contact" view=|| view! { <Contact/> }/>
                     <Route path="/about" view=|| view! { <About/> }/>
+                    <Route path="/projects" view=|| view! { <Projects/> }/>
                 </Routes>
             </AppLayout>
             <SocialMedia/>
@@ -40,8 +40,7 @@ pub fn App() -> impl IntoView {
 fn HomePage() -> impl IntoView {
     // TODO: iterate through the messages
     let msgs = vec![
-        String::from("hi welcome to my website"),
-        String::from("my name is kyle, i am a programmer"),
+        String::from("hi welcome to my wasm site"),
     ];
     view! {
             <TypingContainer messages=msgs/>
@@ -51,8 +50,38 @@ fn HomePage() -> impl IntoView {
 #[component]
 fn About() -> impl IntoView {
     view! {
+        <div class="text-blob">
+            <p>"I am a developer, mainly focused on writing smart-contracts since 2017. My preferred languages are Solidity, Huff, and Rust."</p>
+            <p>"I studied Psychology and Computer Science at the University of British Columbia in Vancouver, before moving to Switzerland to work on smart-contracts full-time."</p>
+            <p>"I do consulting and development work so feel free to reach out if you have a project you would like help with."</p>
+        </div>
+    }
+}
+
+#[component]
+fn Projects() -> impl IntoView {
+    view! {
         <div>
-            <p>"have been developing blockchain software since 2016"</p>
+                <ul><strong>2022-present </strong>
+                <li> I worked on the smart-contracts for the V2 release for <a href="https://nexusmutual.io/" target="_blank">Nexus Mutual</a> 
+                .I was in charge of writing the coverage and staking NFTs as well as working on the new staking system, which utilizes a type of concentrated liquidity to allow stakers to provide coverage for defi protocols at their prefered price-point.
+                </li>
+                <li> I got interested in <a href="https://huff.sh/" target="_blank">Huff</a> and wrote an efficient implementation of the <a href="https://github.com/kyledewy/quicksort-huff"> quicksort algorithm </a></li>
+                <li> To deepen my understanding of low level evm programming I rewrote <a href="https://github.com/kyledewy/weiroll-huff"> weiroll </a> in Huff. This reduced the gas costs by around 50%. </li>
+
+                <li> I started building a city-builder strategy game using Bevy, a rust based game engine. The idea of the game is to terraform planets by altering the weather systems to make it more liveable. </li>
+                
+                </ul>
+
+                <ul><strong> 2021-2022</strong> 
+                    <li> I helped a friend start a defi company called  <a href="https://www.enso.finance/" target="_blank">EnsoFinance</a> with the goal of aggregating multiple defi interactions into a singl interface. We wanted to give users a way to interact with the many different protocols in a single transaction. We initially used tokenized vaults, but to increase gas efficiency and security we instead used the Weiroll VM to aggregate contract calls. This allows users to keep their tokens and ETH seperated and allows for simpler integrations </li>
+               </ul> 
+               <ul><strong> 2019-2021 </strong> 
+                <li> I joined <a href="https://www.seba.swiss/" target="_blank">Seba Bank</a>, where we developed a chain analysis tool to comply with AML laws. Following this we setup the cold storage system. To do this we developed a custom cli using a stripped down image of Debian. The system utilized multisigs for Bitcoin and Ethereum and signed the transactions completely offline for maximum security. </li>
+
+                <li> Me and a friend launched an NFT named <a href="https://opensea.io/collection/galaxia"> Galaxia </a>. Each NFT was a planetary body in our solar system.</li>
+
+                </ul>
         </div>
     }
 }
