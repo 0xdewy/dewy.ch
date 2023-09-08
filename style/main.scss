@@ -6,6 +6,7 @@
   body {
 	font-family: "Archia";
 	font-weight: Regular;
+	font-size: calc(10px + 2vmin);
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	background-color: #212121;
@@ -24,16 +25,15 @@
   ul {
       display: block;
       text-align: start;
-      align-self: start;
+      width: 70vw;
   }
 
   li {
       margin: 1em 2.5em; /* Add spacing between items */
       text-align: start;
-      align-self: start;
       text-decoration: none;
       color: white;
-      max-width: 70vw;
+      width: 65vw;
     }
 
     a {
@@ -52,14 +52,12 @@
 }
 
 .nav-item {
-    margin: 0 2em; /* Add spacing between items */
-    font-weight: bold; /* Make items bold */
+    margin: 0 2vw; /* Add spacing between items */
     align-self: center;
     display: block;
     text-align: center; /* Center text */
     text-decoration: none; /* Remove underline */
     color: white; /* Change link color to white */
-    font-size: 1em;
     height: 2em;
 }
 
@@ -73,7 +71,6 @@
 	place-content: center;
 	overflow: hidden;
 	gap: 10%;
-	font-size: calc(10px + 2vmin);
 	color: white;
 }
 
@@ -103,7 +100,6 @@
   border-radius: 4px;
   background-color: white;
   color: black;
-  font-size: 1em;
   transition: background-color 0.3s ease;
 }
 
@@ -122,12 +118,13 @@
 .typing-container {
     display: inline-block;
 	overflow-wrap: break-word;
+	font-size: calc(15px + 2vmin);
 }
 
   .text-blob {
 	display: inline-block;
 	overflow-wrap: break-word;
-	width: 70%;
+	width: 70vw;
   }
   
   .typed-out {
@@ -135,7 +132,6 @@
 	border-right: 0.15em solid white;
 	white-space: nowrap;
 	animation: typing 2s steps(60, end) forwards, blink 0.8s infinite;
-	font-size: 1.6rem;
 	width: 0;
   }
   
