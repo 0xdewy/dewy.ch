@@ -182,10 +182,10 @@ fn NavBar() -> impl IntoView {
 fn SocialMedia() -> impl IntoView {
     view! {
             <div class="social-media">
-                <a href="https://twitter.com/kyle_dewy" target="_blank">
+                <a href="https://twitter.com/dewy_eth" target="_blank">
                     <div class="twitter" ></div>
                 </a>
-                <a href="https://github.com/kyledewy" target="_blank">
+                <a href="https://github.com/0xdewy" target="_blank">
                     <div class="github" />
                 </a>
             </div>
